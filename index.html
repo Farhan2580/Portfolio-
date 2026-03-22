@@ -4,7 +4,7 @@
    <meta charset="utf-8">
    <title>Farhan Labib | Portfolio</title>
    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
+   <link rel="canonical" href="https://your-actual-link.com/">
    <link rel="stylesheet" href="css/base.css">  
    <link rel="stylesheet" href="css/main.css">
    <link rel="stylesheet" href="css/vendor.css">     
@@ -30,145 +30,350 @@
    <script src="js/modernizr.js"></script>
 </head>
 
-<body id="top">
 
-   <style>
-    /* 1. Floating Header Fix */
-    .premium-header-v15 {
-        position: fixed; top: 0; left: 0; width: 100%; height: 90px;
-        z-index: 9999; padding: 0 5%; display: flex;
-        align-items: center; justify-content: space-between;
-        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
 
-    .logo-v15 a {
-        font-size: 2.6rem; font-weight: 900; color: white;
-        text-decoration: none; letter-spacing: 2px;
-    }
-    .logo-v15 span { color: #CC005F; }
 
-    /* 2. THE ANIMATED MENU ICON (ONLY ICON) */
-    .menu-trigger-v15 {
-        width: 65px; height: 65px; background: rgba(204, 0, 95, 0.1);
-        backdrop-filter: blur(15px); border: 2px solid rgba(204, 0, 95, 0.3);
-        border-radius: 20px; display: flex; flex-direction: column;
-        align-items: center; justify-content: center; gap: 5px;
-        cursor: pointer; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        position: relative; z-index: 10001;
-    }
 
-    /* Icon Stripes */
-    .menu-trigger-v15 span {
-        width: 30px; height: 3px; background: white;
-        display: block; border-radius: 10px;
-        transition: 0.4s cubic-bezier(0.68, -0.6, 0.3, 1.6);
-    }
-    /* Middle stripe is shorter for style */
-    .menu-trigger-v15 span:nth-child(2) { width: 18px; align-self: flex-end; margin-right: 17px; }
 
-    /* Hover & Active Effects */
-    .menu-trigger-v15:hover {
-        background: #CC005F; border-color: #CC005F;
-        transform: rotate(90deg) scale(1.1);
-        box-shadow: 0 0 25px rgba(204, 0, 95, 0.5);
-    }
+<div id="ai-assistant-v12" style="position: fixed; bottom: 12px; left: 30px; z-index: 9999; font-family: 'Inter', sans-serif;">
+    
+    <button id="bot-toggle" style="background: linear-gradient(135deg, #FF4B2B, #CC005F); color: white; border: none; width: 65px; height: 65px; border-radius: 20px; cursor: pointer; box-shadow: 0 15px 35px rgba(204,0,95,0.4); font-size: 28px; transition: 0.4s; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+        <i class="fa fa-magic"></i>
+        <div style="position: absolute; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); left: -100%; animation: flare 3s infinite;"></div>
+    </button>
 
-    .menu-trigger-v15.active {
-        transform: rotate(0deg); background: #333; border-color: #444;
-    }
+    <div id="bot-window" style="display: none; width: 360px; height: 550px; background: rgba(8, 8, 8, 0.95); backdrop-filter: blur(25px); border: 1px solid rgba(204, 0, 95, 0.4); border-radius: 30px; position: absolute; bottom: 85px; left: 0; flex-direction: column; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.9); transform: translateY(20px); transition: 0.5s ease-out;">
+        
+        <div style="padding: 20px; background: linear-gradient(to right, rgba(204,0,95,0.1), transparent); border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="width: 12px; height: 12px; background: #FF4B2B; border-radius: 50%; box-shadow: 0 0 20px #FF4B2B; animation: pulse 2s infinite;"></div>
+                <div>
+                    <h4 style="margin: 0; color: white; font-size: 16px; font-weight: 800; letter-spacing: 1px;">Ai Assistant</h4>
+                    <span style="font-size: 10px; color: #aaa; text-transform: uppercase;">Neural Processing Active</span>
+                </div>
+            </div>
+            <button id="close-bot" style="background: transparent; border: none; color: #888; cursor: pointer; font-size: 24px;">&times;</button>
+        </div>
 
-    .menu-trigger-v15.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); width: 30px; }
-    .menu-trigger-v15.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-    .menu-trigger-v15.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); width: 30px; }
+        <div id="bot-messages" style="flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; scrollbar-width: none;">
+            <div class="bot-msg">Systems Online. I am Farhan Labib's advanced interface. Ask me anything about his work, or general tech queries!</div>
+        </div>
 
-    /* 3. FULL SCREEN BUBBLE REVEAL NAV */
-    #full-nav-v15 {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-        background: radial-gradient(circle at 90% 10%, rgba(30, 0, 15, 0.98), #050505);
-        backdrop-filter: blur(30px); display: flex; align-items: center; justify-content: center;
-        clip-path: circle(0% at 93% 7%);
-        transition: clip-path 0.8s cubic-bezier(0.8, 0, 0.2, 1);
-        z-index: 10000;
-    }
+        <div id="typing" style="display: none; padding: 0 25px 15px; color: #CC005F; font-size: 12px; font-weight: 700; letter-spacing: 1px;">ANALYZING...</div>
 
-    #full-nav-v15.open { clip-path: circle(150% at 93% 7%); }
+        <div style="padding: 20px; background: rgba(0,0,0,0.4); display: flex; gap: 10px; border-top: 1px solid rgba(255,255,255,0.05);">
+            <input id="bot-input" type="text" placeholder="Type your query..." style="flex: 1; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 14px 18px; color: white; outline: none; font-size: 14px; transition: 0.3s;">
+            <button id="bot-send" style="background: #CC005F; border: none; color: white; width: 50px; height: 50px; border-radius: 15px; cursor: pointer; box-shadow: 0 5px 15px rgba(204,0,95,0.3);"><i class="fa fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
 
-    /* Menu Links Design */
-    .nav-content-v15 { list-style: none; text-align: center; }
-    .nav-content-v15 li { margin: 25px 0; opacity: 0; transform: scale(0.5); transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    #full-nav-v15.open li { opacity: 1; transform: scale(1); }
-
-    .nav-link-v15 {
-        font-size: 5.5rem; font-weight: 900; color: white;
-        text-decoration: none; text-transform: uppercase;
-        letter-spacing: -2px; transition: 0.4s; position: relative;
-    }
-
-    /* Hover Highlight */
-    .nav-link-v15:hover {
-        color: #CC005F; padding-left: 20px;
-    }
-
-    @media screen and (max-width: 768px) {
-        .nav-link-v15 { font-size: 3.5rem; }
-        .menu-trigger-v15 { width: 55px; height: 55px; }
-    }
+<style>
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+    @keyframes flare { 0% { left: -100%; } 100% { left: 100%; } }
+    .bot-msg, .user-msg { padding: 14px 18px; border-radius: 20px; font-size: 14px; line-height: 1.6; max-width: 85%; animation: fadeIn 0.5s ease; position: relative; }
+    .bot-msg { background: rgba(255,255,255,0.04); color: #ddd; align-self: flex-start; border-bottom-left-radius: 5px; border-left: 4px solid #CC005F; box-shadow: 5px 5px 15px rgba(0,0,0,0.2); }
+    .user-msg { background: linear-gradient(135deg, #CC005F, #FF4B2B); color: white; align-self: flex-end; border-bottom-right-radius: 5px; font-weight: 500; box-shadow: 0 10px 20px rgba(204,0,95,0.2); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    #bot-messages::-webkit-scrollbar { display: none; }
+    #bot-input:focus { border-color: #CC005F; background: rgba(255,255,255,0.07); }
 </style>
 
-<header class="premium-header-v15">    
-    <div class="logo-v15">
-        <a href="index.html">FARHAN<span>.</span></a>
-    </div>
-
-    <div class="menu-trigger-v15" id="btnToggle">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-
-    <nav id="full-nav-v15">
-        <ul class="nav-content-v15">
-            <li style="transition-delay: 0.1s;"><a href="#intro" class="nav-link-v15">Home</a></li>
-            <li style="transition-delay: 0.2s;"><a href="#about" class="nav-link-v15">About</a></li>
-            <li style="transition-delay: 0.3s;"><a href="#resume" class="nav-link-v15">Resume</a></li>
-            <li style="transition-delay: 0.4s;"><a href="#portfolio" class="nav-link-v15">Portfolio</a></li>                  
-            <li style="transition-delay: 0.5s;"><a href="#contact" class="nav-link-v15">Contact</a></li>                  
-        </ul>
-    </nav>
-</header>
 
 <script>
-    const btn = document.getElementById('btnToggle');
-    const nav = document.getElementById('full-nav-v15');
-    const links = document.querySelectorAll('.nav-link-v15');
+    const assistantBtn = document.getElementById('bot-toggle');
+    const assistantWin = document.getElementById('bot-window');
+    const assistantClose = document.getElementById('close-bot');
+    const assistantInput = document.getElementById('bot-input');
+    const assistantSend = document.getElementById('bot-send');
+    const assistantMsgs = document.getElementById('bot-messages');
+    const assistantTyping = document.getElementById('typing');
 
-    // Toggle with body scroll lock
-    btn.addEventListener('click', () => {
-        btn.classList.toggle('active');
-        nav.classList.toggle('open');
-        document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : 'auto';
-    });
+    // 1. Toggle AI Window Logic
+    assistantBtn.onclick = () => {
+        const isHidden = assistantWin.style.display === 'none' || assistantWin.style.display === '';
+        assistantWin.style.display = isHidden ? 'flex' : 'none';
+        if(isHidden) {
+            setTimeout(() => assistantWin.style.transform = "translateY(0)", 10);
+        }
+    };
 
-    // Close on link click
-    links.forEach(link => {
-        link.addEventListener('click', () => {
-            btn.classList.remove('active');
-            nav.classList.remove('open');
-            document.body.style.overflow = 'auto';
-        });
-    });
+    assistantClose.onclick = () => {
+        assistantWin.style.transform = "translateY(20px)";
+        setTimeout(() => assistantWin.style.display = 'none', 300);
+    };
 
-    // Header Scroll Effect
-    window.addEventListener('scroll', () => {
-        const header = document.querySelector('.premium-header-v15');
-        header.style.background = window.scrollY > 50 ? 'rgba(5, 5, 5, 0.9)' : 'transparent';
-        header.style.height = window.scrollY > 50 ? '75px' : '90px';
-    });
+    // 2. MASSIVE KNOWLEDGE BASE (Ekhane hazar hazar data add kora jabe)
+    const KNOWLEDGE_BASE = [
+        {
+            // Identity & Bot Info
+            keywords: ["who are you", "tumi ke", "identity", "name", "your name", "tomar nam ki", "identity", "bot", "assistant"],
+            ans: "I am <b>Farhan's AI Assistant</b>. 🤖 I was created to help you learn more about Farhan's work and professional background. You can think of me as his digital representative!"
+        },
+        {
+            // Relationship with Farhan
+            keywords: ["know farhan", "chino farhan", "farhan ke", "who is farhan", "creator", "owner", "him", "farhan labib"],
+            ans: "Yes, I know <b>Farhan Labib</b> very well! He is my creator and the developer behind this portfolio. He's a Software Developer and a CSE student at <b>UAP</b>."
+        },
+        {
+            // Bot's Purpose/Work
+            keywords: ["your work", "your job", "ki kaj", "keno ekhane", "purpose", "what do you do", "help", "role"],
+            ans: "My job is to assist you! 💼 I can answer questions about Farhan's <b>skills, projects, education,</b> or provide his <b>contact details</b> for hiring or collaboration."
+        },
+        {
+            // Skills & Tech Stack
+            keywords: ["skill", "expertise", "language", "stack", "ki ki jano", "tech", "python", "django", "coding"],
+            ans: "Farhan is an expert in <b>Python and Django</b>. He also works with <b>Machine Learning</b>, <b>End-to-End Encryption</b>, and modern UI designs like <b>Glassmorphism and 3D animations</b>."
+        },
+        {
+            // Projects
+            keywords: ["project", "work", "portfolio", "app", "banayche", "done", "ocr", "chat", "e-commerce"],
+            ans: "He has built several cool things:<br>🚀 <b>AI Doc Master:</b> An OCR tool for text extraction.<br>🔐 <b>Secure Chat:</b> A highly encrypted messaging app.<br>🛒 <b>E-commerce Platform:</b> A full-stack Django site."
+        },
+        {
+            // Education (UAP)
+            keywords: ["university", "study", "uap", "varsity", "education", "student", "cse", "porasona", "degree"],
+            ans: "Farhan is currently pursuing his Bachelor's degree in Computer Science and Engineering (CSE) at the <b>University of Asia Pacific (UAP)</b>."
+        },
+        {
+            // Contact & Hire
+            keywords: ["contact", "whatsapp", "hire", "email", "phone", "number", "location", "address", "jogajog", "hire"],
+            ans: "You can reach Farhan directly:<br>📧 <b>Email:</b> labibf2580@gmail.com<br>📱 <b>WhatsApp:</b> +8801300972969<br>📍 <b>Location:</b> Mirpur, Dhaka."
+        },
+        {
+            // General Greetings
+            keywords: ["hi", "hello", "hey", "ki obostha", "salaam", "how are you", "kemon acho", "oi", "yo"],
+            ans: "Hello there! I'm doing great. 😊 I am Farhan's AI Assistant. How can I help you navigate his portfolio today?"
+        }
+    ];
+
+    // 3. SMART LOGIC FUNCTION
+    function botLogic(str) {
+        const query = str.toLowerCase().trim();
+        
+        // Match query with keywords in Knowledge Base
+        for (let item of KNOWLEDGE_BASE) {
+            if (item.keywords.some(key => query.includes(key))) {
+                return item.ans;
+            }
+        }
+
+        // Fallback responses if no match found
+        const fallbacks = [
+            "I'm still learning! 😅 But I can tell you about Farhan's <b>Python projects</b> or how to <b>contact him</b>.",
+            "I didn't quite get that. Try asking about his <b>skills, education at UAP,</b> or <b>OCR project</b>.",
+            "That's a great question! I don't have the answer yet, but you can message Farhan on <b>WhatsApp</b> to ask him directly."
+        ];
+        return fallbacks[Math.floor(Math.random() * fallbacks.length)];
+    }
+
+    // 4. UI Interaction Logic
+    function addMsg(txt, isUser) {
+        const d = document.createElement('div');
+        d.className = isUser ? 'user-msg' : 'bot-msg';
+        d.innerHTML = txt;
+        assistantMsgs.appendChild(d);
+        assistantMsgs.scrollTop = assistantMsgs.scrollHeight;
+    }
+
+    function handleAssistantChat() {
+        const val = assistantInput.value.trim();
+        if(!val) return;
+
+        addMsg(val, true); // User message
+        assistantInput.value = "";
+        assistantTyping.style.display = "block";
+        
+        // Simulating AI thinking time
+        setTimeout(() => {
+            assistantTyping.style.display = "none";
+            addMsg(botLogic(val), false); // Bot response
+        }, 600);
+    }
+
+    assistantSend.onclick = handleAssistantChat;
+    assistantInput.onkeypress = (e) => { if(e.key === 'Enter') handleAssistantChat(); };
 </script>
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+<body id="top">
+
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        
+        .premium-header-v15 {
+            font-family: 'Inter', sans-serif;
+            position: fixed; top: 0; left: 0; width: 100%; height: 90px;
+            z-index: 9999; padding: 0 5%; display: flex;
+            align-items: center; justify-content: space-between;
+            transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+    
+        .logo-v15 a {
+            font-size: 2.5rem; font-weight: 900; color: white;
+            text-decoration: none; letter-spacing: 2px;
+        }
+        .logo-v15 span { color: #CC005F; }
+    
+        /* 3D Menu Icon */
+        .menu-trigger-v15 {
+            width: 60px; height: 60px; background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; gap: 6px;
+            cursor: pointer; transition: 0.5s; z-index: 10001;
+            perspective: 1000px;
+        }
+    
+        .menu-trigger-v15 span {
+            width: 26px; height: 3px; background: white;
+            display: block; border-radius: 10px; transition: 0.4s;
+        }
+    
+        .menu-trigger-v15:hover { background: #CC005F; border-color: #CC005F; transform: scale(1.05); }
+    
+        .menu-trigger-v15.active { transform: rotateY(180deg); background: #222; }
+        .menu-trigger-v15.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+        .menu-trigger-v15.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .menu-trigger-v15.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+    
+        /* Full Nav Overlay */
+        #full-nav-v15 {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: rgba(8, 8, 8, 0.97); backdrop-filter: blur(30px);
+            display: flex; align-items: center; justify-content: center;
+            clip-path: circle(0% at 93% 7%);
+            transition: clip-path 0.9s cubic-bezier(0.8, 0, 0.2, 1);
+            z-index: 10000;
+        }
+    
+        #full-nav-v15.open { clip-path: circle(150% at 93% 7%); }
+    
+        .nav-content-v15 { list-style: none; counter-reset: nav-counter; perspective: 1500px; width: 80%; }
+        
+        .nav-content-v15 li { 
+            margin: 35px 0; opacity: 0; 
+            transform: translate3d(0, 80px, -300px); 
+            transition: 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+    
+        #full-nav-v15.open li { opacity: 1; transform: translate3d(0, 0, 0); }
+        #full-nav-v15.open li:nth-child(1) { transition-delay: 0.1s; }
+        #full-nav-v15.open li:nth-child(2) { transition-delay: 0.2s; }
+        #full-nav-v15.open li:nth-child(3) { transition-delay: 0.3s; }
+        #full-nav-v15.open li:nth-child(4) { transition-delay: 0.4s; }
+    
+        /* Premium Ghost Text with Gradient Reveal */
+        .nav-link-v15 {
+            font-size: clamp(3rem, 7vw, 7.5rem); font-weight: 900; 
+            color: transparent; text-decoration: none; text-transform: uppercase;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.15);
+            position: relative; transition: 0.5s; letter-spacing: -2px;
+        }
+    
+        .nav-link-v15::before {
+            content: "0" counter(nav-counter); counter-increment: nav-counter;
+            position: absolute; left: -70px; top: 50%; transform: translateY(-50%);
+            font-size: 1.2rem; font-weight: 400; color: #CC005F;
+            -webkit-text-stroke: 0;
+        }
+    
+        .nav-link-v15:hover {
+            padding-left: 25px;
+            background: linear-gradient(90deg, #CC005F, #FF4B2B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke: 1px transparent;
+        }
+    
+        .nav-link-v15::after {
+            content: ""; position: absolute; bottom: -8px; left: 0;
+            width: 0; height: 4px; background: linear-gradient(90deg, #CC005F, #FF4B2B);
+            transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+    
+        .nav-link-v15:hover::after { width: 100%; }
+    
+        .menu-decor-text {
+            position: absolute; top: 8%; left: 8%;
+            color: rgba(255,255,255,0.2); font-size: 1rem; 
+            letter-spacing: 5px; text-transform: uppercase; font-weight: bold;
+        }
+    
+        @media screen and (max-width: 768px) {
+            .nav-link-v15 { font-size: 4rem; letter-spacing: -1px; }
+            .nav-link-v15::before { left: 0; top: -20px; transform: none; }
+        }
+    </style>
+    
+    <header class="premium-header-v15">    
+        <div class="logo-v15">
+            <a href="index.html">FARHAN<span>.</span></a>
+        </div>
+    
+        <div class="menu-trigger-v15" id="menuBtn">
+            <span></span><span></span><span></span>
+        </div>
+    
+        <nav id="full-nav-v15">
+            <div class="menu-decor-text">Neural Network Area</div>
+            <ul class="nav-content-v15">
+                <li><a href="#intro" class="nav-link-v15">Home</a></li>
+                <li><a href="#about" class="nav-link-v15">About</a></li>
+                <li><a href="#resume" class="nav-link-v15">Resume</a></li>
+                <li><a href="#contact" class="nav-link-v15">Contact</a></li>                  
+            </ul>
+            <div style="position: absolute; bottom: 8%; right: 8%; color: #444; font-size: 11px; text-transform: uppercase; letter-spacing: 2px;">
+                FARHAN LABIB | 2026
+            </div>
+        </nav>
+    </header>
+    
+    <script>
+        const mBtn = document.getElementById('menuBtn');
+        const nPane = document.getElementById('full-nav-v15');
+        const nLinks = document.querySelectorAll('.nav-link-v15');
+    
+        mBtn.addEventListener('click', () => {
+            mBtn.classList.toggle('active');
+            nPane.classList.toggle('open');
+            document.body.style.overflow = nPane.classList.contains('open') ? 'hidden' : 'auto';
+        });
+    
+        nLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mBtn.classList.remove('active');
+                nPane.classList.remove('open');
+                document.body.style.overflow = 'auto';
+            });
+        });
+    
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.premium-header-v15');
+            if(window.scrollY > 50) {
+                header.style.background = 'rgba(5, 5, 5, 0.92)';
+                header.style.height = '75px';
+                header.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+            } else {
+                header.style.background = 'transparent';
+                header.style.height = '90px';
+                header.style.borderBottom = 'none';
+            }
+        });
+    </script>
 
 
 
@@ -214,7 +419,7 @@
         <div class="row">
             <div class="col-twelve">
                 <h5>Hello, I am</h5>
-                <h1>Farhan Labib.</h1>
+                <h1 class="animated-name">Farhan Labib.</h1>
                 <p class="intro-position">
                     <span>Python Developer</span>
                     <span>Machine Learning Enthusiast</span> 
@@ -260,62 +465,8 @@
 </body>
 </html>
 
-   <header>    
-	<div class="row">
-		<div class="top-bar">
-			<a class="menu-toggle" href="javascript:void(0);"><span>MENU</span></a>
-   
-			<div class="logo"><a href="index.html">FARHAN</a></div>              
-			
-			<nav id="main-nav-wrap">
-				<ul class="main-navigation">
-					<li class="current"><a class="smoothscroll" href="#intro">Home</a></li>
-					<li><a class="smoothscroll" href="#about">About</a></li>
-					<li><a class="smoothscroll" href="#resume">Resume</a></li>
-					<li><a class="smoothscroll" href="#portfolio">Portfolio</a></li>                  
-					<li><a class="smoothscroll" href="#contact">Contact</a></li>                  
-				</ul>
-			</nav>          
-		</div> 
-	</div> 
-   </header>
 
 
-   <script src="js/jquery-2.1.3.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            var toggleButton = $('.menu-toggle'),
-                nav = $('#main-nav-wrap');
-
-            toggleButton.on('click', function(event) {
-                event.preventDefault();
-                toggleButton.toggleClass('is-clicked');
-                nav.slideToggle();
-            });
-
-            if (toggleButton.is(':visible')) nav.addClass('mobile');
-
-            $(window).resize(function() {
-                if (toggleButton.is(':hidden')) {
-                    nav.show().removeClass('mobile');
-                } else {
-                    nav.hide().addClass('mobile');
-                }
-            });
-
-            $('#main-nav-wrap li a').on("click", function() {
-                if (nav.hasClass('mobile')) {
-                    toggleButton.toggleClass('is-clicked');
-                    nav.fadeOut();
-                }
-            });
-        });
-    </script>
-
-</body>
 
 
 
@@ -566,7 +717,7 @@
             <div class="path-column" style="width: 100%; display: flex; flex-direction: column;">
                 <div class="column-header color-2">
                     <i class="fa fa-flask"></i>
-                    <h3>Thesis & Certs</h3>
+                    <h3>Thesis & Certificates</h3>
                 </div>
 
                 <div class="modern-card-v2 thesis-highlight" style="flex-grow: 1;">
@@ -591,7 +742,7 @@
             <div class="path-column" style="width: 100%; display: flex; flex-direction: column;">
                 <div class="column-header color-3">
                     <i class="fa fa-code"></i>
-                    <h3>Top Projects</h3>
+                    <h3>Projects</h3>
                 </div>
 
                 <div class="modern-card-v2" style="flex-grow: 1;">
@@ -865,48 +1016,59 @@
 </section>
 
 <script>
-    var form = document.getElementById("contactForm");
-    var status = document.getElementById("form-status-v10");
-    var btnText = form.querySelector('.btn-content-v10 span');
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById("contactForm");
+        const status = document.getElementById("form-status-v10");
+        const btnText = form.querySelector('.btn-content-v10 span');
 
-    async function handleSubmit(event) {
-      event.preventDefault();
-      status.style.display = "block";
-      status.style.color = "#bbb";
-      btnText.innerHTML = "Sending...";
-      
-      var data = new FormData(event.target);
-      fetch(event.target.action, {
-        method: form.method,
-        body: data,
-        headers: {
-            'Accept': 'application/json'
-        }
-      }).then(response => {
-        if (response.ok) {
-          status.innerHTML = "✓ Thanks! Your message was sent successfully.";
-          status.style.color = "#2ecc71"; // Green
-          btnText.innerHTML = "Sent!";
-          form.reset();
-        } else {
-          response.json().then(data => {
-            if (Object.hasOwn(data, 'errors')) {
-              status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
-            } else {
-              status.innerHTML = "Oops! There was a problem.";
+        if (!form) return;
+
+        form.addEventListener("submit", async function(event) {
+            event.preventDefault();
+            
+            // UI Update
+            status.style.display = "block";
+            status.innerHTML = "Sending...";
+            status.style.color = "#bbb";
+            btnText.innerHTML = "Sending...";
+            
+            const data = new FormData(event.target);
+            
+            try {
+                const response = await fetch(event.target.action, {
+                    method: 'POST',
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    status.innerHTML = "✓ Thanks! Your message was sent successfully.";
+                    status.style.color = "#2ecc71"; // Green
+                    btnText.innerHTML = "Sent!";
+                    form.reset();
+                } else {
+                    const result = await response.json();
+                    if (Object.prototype.hasOwnProperty.call(result, 'errors')) {
+                        status.innerHTML = result["errors"].map(error => error["message"]).join(", ");
+                    } else {
+                        status.innerHTML = "Oops! There was a problem.";
+                    }
+                    status.style.color = "#ff4b2b"; // Red
+                    btnText.innerHTML = "Try Again";
+                }
+            } catch (error) {
+                status.innerHTML = "Oops! Check your internet connection.";
+                status.style.color = "#ff4b2b";
+                btnText.innerHTML = "Try Again";
             }
-            status.style.color = "#ff4b2b"; // Red
-            btnText.innerHTML = "Try Again";
-          })
-        }
-      }).catch(error => {
-        status.innerHTML = "Oops! There was a problem submitting your form";
-        status.style.color = "#ff4b2b";
-        btnText.innerHTML = "Try Again";
-      });
-    }
-    form.addEventListener("submit", handleSubmit)
+        });
+    });
 </script>
+
+
+
 
 
 
@@ -1148,7 +1310,6 @@
         }
     </script>
 </footer>
-
 
 
 
